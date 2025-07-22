@@ -14,9 +14,9 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Docker Hub Description
-      uses: peter-evans/dockerhub-description@v2
+      uses: peter-evans/dockerhub-description@v4
       with:
-        username: charlocharlie
+        username: ${{ vars.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
-        repository: charlocharlie/qbittorrent-port-forward-file
+        repository: ${{ vars.DOCKERHUB_USERNAME }}/qbittorrent-port-forward-file
         readme-filepath: ./README.md

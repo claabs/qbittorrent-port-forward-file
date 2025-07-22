@@ -19,9 +19,26 @@ A shell script and Docker container for automatically setting qBittorrent's list
 |-----------------|--------------------|------|-----------------------------------------------------------|
 | `/my/host/dir/` | `/config`          | `ro` | The directory in which the forwared ports file is located |
 
+### Docker Compose
+
+```yaml
+services:
+  qbittorrent-port-forwarder:
+    container_name: qbittorrent-port-forwarder
+    image: ghcr.io/claabs/qbittorrent-port-forward-file:latest
+    environment:
+      - QBT_USERNAME=admin
+      - QBT_PASSWORD=adminadmin
+      - QBT_ADDR=http://192.168.1.100:8080
+      - PORT_FILE=/config/forwarded_port.txt
+    volumes:
+      - ./config:/config:ro
+    restart: unless-stopped
+```
+
 ## Context
 
-Made for use with [docker-wireguard-pia](https://github.com/thrnz/docker-wireguard-pia):
+Made for use with [docker-wireguard-pia](https://github.com/thrnz/docker-wireguard-pia) (although you should use [`PORT_SCRIPT`](https://github.com/thrnz/docker-wireguard-pia/issues/26#issuecomment-868165281)):
 
 * Environment variable: `PORT_FORWARDING=1`
 * Environment variable: `PORT_PERSIST=1`
